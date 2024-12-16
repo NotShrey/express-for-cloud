@@ -1,0 +1,28 @@
+name: e-commerce
+
+service:
+  db:
+    images: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      -"5431:5432"
+    volumes:
+      -postgres_data:/var/lib/postgresql/data
+  redis:
+    image: redis:7-alpine
+    depends-on: db
+    container_name: redis
+    ports:
+      -"6379:6379"
+    volumes:
+    - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+
+#docker compose up
